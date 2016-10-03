@@ -1,3 +1,4 @@
+sudo: required
 language: java
 jdk:
   - oraclejdk8
@@ -9,10 +10,9 @@ script:
   - mvn package
 
 after_success:
-  - docker login -u awmh -p ${DOCKER_PASS}
-  - export REPO=awmh/hackday
-  - export TAG=latest
-  - docker build -t $REPO .
-  - docker tag $REPO $REPO:$TAG
-  - docker tag $REPO $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO
+  - pip install --user awscli'
+  - export PATH=$PATH:$HOME/.local/bin
+  - eval $(aws ecr get-login --region eu-west-1)
+  - docker build -t hackday .
+  - docker tag hackday:latest 034510918061.dkr.ecr.eu-west-1.amazonaws.com/hackday:latest
+  - docker push 034510918061.dkr.ecr.eu-west-1.amazonaws.com/hackday:latest
