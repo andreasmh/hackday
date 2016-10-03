@@ -10,7 +10,7 @@ script:
   - mvn package
 
 after_success:
-  - pip install --user awscli'
+  - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
   - eval $(aws ecr get-login --region eu-west-1)
   - docker build -t hackday .
