@@ -9,7 +9,7 @@ script:
   - mvn package
 
 after_success:
-  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASS
+  - docker login -u awmh -p ${DOCKER_PASS}
   - export REPO=awmh/hackday
   - export TAG=latest
   - docker build -t $REPO .
