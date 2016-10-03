@@ -2,6 +2,7 @@ package hello;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,9 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloWorld {
 
-    @RequestMapping("/")
+    @RequestMapping({"/","/hello"})
     public String home() {
         return "Hello World!";
+    }
+
+    @RequestMapping("/hello/{name}")
+    public String helloName(@PathVariable(name = "name") String name) {
+        return "Hello "+name+"!";
     }
 
     public static void main(String[] args) throws Exception {
